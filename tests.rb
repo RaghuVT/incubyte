@@ -57,5 +57,12 @@ describe StringCalculator do
             numbers_arr = ['', '-1', '//;\n-10;2;-3']
             expect { str_cal.add(numbers_arr) }.to raise_error("negative numbers not allowed -1, -10, -3")
         end
+
+        it "add method ignores numbers greater than 1000" do 
+            str_cal = StringCalculator.new
+            numbers_arr = ['', '1001', '//;\n10000;2;30']
+            message = str_cal.add(numbers_arr)
+            expect(message).to eq [0, 0, 32]
+        end
     end
 end

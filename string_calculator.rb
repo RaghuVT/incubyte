@@ -7,8 +7,10 @@ class StringCalculator
 			num = num.gsub('\n', delimiter)
 			added_num = 0
 			num.split(delimiter).each do |split_num|
-				negative_numbers << split_num.to_i if split_num.to_i < 0
-				added_num += split_num.to_i
+				split_num_int = split_num.to_i
+				next if split_num_int > 1000
+				negative_numbers << split_num_int if split_num_int < 0
+				added_num += split_num_int
 			end
 			added_numbers << added_num
 		end

@@ -14,10 +14,6 @@ class StringCalculator
 		return added_numbers
 	end
 
-	def say_hello 
-		"Hello World!!"
-	end
-
 	private
 
 	def get_delimiter(num)

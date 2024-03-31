@@ -40,16 +40,22 @@ describe StringCalculator do
 
         it "add method parses string with delimiter 'a'" do 
             str_cal = StringCalculator.new
-            numbers_arr = ["", "1", '//a\n10a2a3']
+            numbers_arr = ['', '1', '//a\n10a2a3']
             message = str_cal.add(numbers_arr)
             expect(message).to eq [0, 1, 15]
         end
 
         it "add method parses string with delimiter ';'" do 
             str_cal = StringCalculator.new
-            numbers_arr = ["", "1", '//;\n10;2;3']
+            numbers_arr = ['', '1', '//;\n10;2;3']
             message = str_cal.add(numbers_arr)
             expect(message).to eq [0, 1, 15]
+        end
+
+        it "add method parses string with negative numbers and throws exception" do 
+            str_cal = StringCalculator.new
+            numbers_arr = ['', '-1', '//;\n-10;2;-3']
+            expect { str_cal.add(numbers_arr) }.to raise_error("negative numbers not allowed -1, -10, -3")
         end
     end
 end

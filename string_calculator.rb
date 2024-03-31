@@ -1,15 +1,19 @@
 class StringCalculator
 	def add(numbers)
 		added_numbers = []
+		negative_numbers = []
 		numbers.each do |num|
 			delimiter = get_delimiter(num)
 			num = num.gsub('\n', delimiter)
 			added_num = 0
 			num.split(delimiter).each do |split_num|
+				negative_numbers << split_num.to_i if split_num.to_i < 0
 				added_num += split_num.to_i
 			end
 			added_numbers << added_num
 		end
+
+		raise "negative numbers not allowed #{negative_numbers.join(', ')}" if negative_numbers.any? 
 
 		return added_numbers
 	end

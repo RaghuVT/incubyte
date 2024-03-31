@@ -38,9 +38,16 @@ describe StringCalculator do
             expect(message).to eq [0, 1, 6]
         end
 
-        it "should say 'Hello World' when we call the say_hello method" do 
+        it "add method parses string with delimiter 'a'" do 
             str_cal = StringCalculator.new
             numbers_arr = ["", "1", '//a\n10a2a3']
+            message = str_cal.add(numbers_arr)
+            expect(message).to eq [0, 1, 15]
+        end
+
+        it "add method parses string with delimiter ';'" do 
+            str_cal = StringCalculator.new
+            numbers_arr = ["", "1", '//;\n10;2;3']
             message = str_cal.add(numbers_arr)
             expect(message).to eq [0, 1, 15]
         end

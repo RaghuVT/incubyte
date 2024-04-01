@@ -3,11 +3,12 @@ class StringCalculator
 		added_numbers = []
 		negative_numbers = []
 		numbers.each do |num|
-			delimiter = get_delimiter(num)
-			num = num.gsub('\n', delimiter)
+			delimiters = get_delimiters(num)
+			num = num.gsub('\n', delimiters[0])
 			added_num = 0
-			num.split(delimiter).each do |split_num|
+			num.split(Regexp.union(delimiters)).each do |split_num|
 				split_num_int = split_num.to_i
+
 				next if split_num_int > 1000
 				negative_numbers << split_num_int if split_num_int < 0
 				added_num += split_num_int
@@ -22,13 +23,27 @@ class StringCalculator
 
 	private
 
-	def get_delimiter(num)
+	def get_delimiters(num)
 		num_chars = num.split('')
 
-		if (num_chars.length > 5 && num_chars[0] == '/' && num_chars[1] == '/' && num_chars[3] == '\\' && num[4] == 'n')
-			return num_chars[2]
+		if (num_chars.length > 5 && num_chars[0] == '/' && num_chars[1] == '/')
+			delimiters = []
+
+			delimiter = ''
+			num_chars[2..-1].each_with_index do |char, ind|
+				delimiter += char
+
+				if num_chars[ind+3] == '\\' && num_chars[ind+4] == 'n'
+					delimiters << delimiter
+					break
+				elsif num_chars[ind+3] != char
+					delimiters << delimiter
+					delimiter = ''
+				end
+			end
+			return delimiters
 		else
-			return ","
+			return [',']
 		end
 	end
 end
